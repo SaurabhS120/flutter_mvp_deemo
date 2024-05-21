@@ -13,5 +13,16 @@ void main() {
       model.increment();
       expect(model.counter, 1);
     });
+
+    test('Initial text visibility should be true', () {
+      final counter = CounterModel();
+      expect(counter.isTextVisible, true);
+    });
+
+    test('Initial text visibility should false after toggle', () {
+      final counter = CounterModel();
+      counter.toggleTextVisibility();
+      expect(counter.isTextVisible, false);
+    });
   });
 }
