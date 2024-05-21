@@ -11,6 +11,7 @@ class _CounterViewWidgetState extends State<CounterViewWidget> implements Counte
   final CounterModel _model = CounterModel();
   late CounterPresenter _presenter;
   int _counter = 0;
+  bool _isTextVisible = true;
 
   @override
   void initState() {
@@ -23,6 +24,13 @@ class _CounterViewWidgetState extends State<CounterViewWidget> implements Counte
   void updateCounter(int counter) {
     setState(() {
       _counter = counter;
+    });
+  }
+
+  @override
+  void updateVisibility(bool visibility){
+    setState(() {
+      _isTextVisible = visibility;
     });
   }
 
@@ -42,6 +50,16 @@ class _CounterViewWidgetState extends State<CounterViewWidget> implements Counte
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            if (_isTextVisible) // Conditionally show text based on _isTextVisible
+              Text(
+                'This is a toggled text!',
+                style: TextStyle(color: Colors.blue),
+              ),
+            SizedBox(height: 20), // Add some space
+            ElevatedButton(
+              onPressed: _presenter.toggleTextVisibility, // Button to toggle text visibility
+              child: Text('Toggle Text Visibility'),
             ),
           ],
         ),
